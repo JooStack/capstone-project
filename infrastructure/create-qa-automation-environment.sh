@@ -11,13 +11,13 @@ chmod 400 ${ANS_KEYPAIR}
 # Create infrastructure for kubernetes
 cd infrastructure/dev-k8s-terraform
 terraform init
-terraform apply --auto-approve --no-color
+terraform apply -auto-approve -no-color
 # Install k8s cluster on the infrastructure
 ansible-playbook -i ./ansible/inventory/dev_stack_dynamic_inventory_aws_ec2.yaml ./ansible/playbooks/k8s_setup.yaml
 # Build, Deploy, Test the application
 # Tear down the k8s infrastructure
 cd infrastructure/dev-k8s-terraform
-terraform destroy --auto-approve --no-color
+terraform destroy -auto-approve -no-color
 # Delete key pair
 aws ec2 delete-key-pair --region ${AWS_REGION} --key-name ${ANS_KEYPAIR}
 rm -rf ${ANS_KEYPAIR}
